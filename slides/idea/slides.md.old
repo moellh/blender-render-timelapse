@@ -1,0 +1,793 @@
+---
+theme: default
+background: false
+fonts:
+  sans: Inter
+  mono: JetBrains Mono
+  weights: '300,400,600,700'
+  provider: google
+layout: cover
+class: text-center
+highlighter: shiki
+drawings:
+  persist: false
+transition: fade
+info: |
+  ## Render-Timelapse
+  Blender Add-on for Project of Practical Course "Developing Blender Plugins for Digital Art and Content Creation" in Summer Term 2026
+author: Henrik Möllmann
+---
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const el = document.createElement('div')
+  el.id = 'slide-page-no'
+  el.style.cssText = 'position:fixed;bottom:14px;right:20px;color:#999;font-size:12px;font-family:JetBrains Mono,monospace;z-index:9999;pointer-events:none'
+
+  const update = () => {
+    const slides = document.querySelectorAll('.slidev-page')
+    for (let i = 0; i < slides.length; i++) {
+      if (slides[i].offsetParent !== null) {
+        const n = parseInt(slides[i].getAttribute('data-slidev-no'))
+        el.textContent = n > 1 ? String(n) : ''
+        return
+      }
+    }
+  }
+
+  document.body.appendChild(el)
+  update()
+
+  const observer = new MutationObserver(update)
+  if (document.querySelector('#app')) {
+    observer.observe(document.querySelector('#app'), {
+      childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class']
+    })
+  }
+})
+</script>
+
+<style>
+#slide-page-no { color: #999; font-size: 12px; }
+</style>
+
+<div class="absolute top-6 left-0 right-0 text-muted text-sm">Idea Presentation for Project by Henrik Möllmann</div>
+
+<div>
+
+<h1 class="!mt-0 !mb-0">Render-Timelapse</h1>
+
+<div class="h-8" />
+
+<div class="italic text-lg">Record your Blender editing process and create a beautiful video of it.</div>
+
+</div>
+
+<div class="absolute bottom-6 left-0 right-0 text-center text-muted text-sm">Practical Course "Developing Blender Plugins for Digital Art and Content Creation" in Summer Term 2026</div>
+
+---
+
+
+<div class="flex justify-center mb-3">
+  <div class="text-sm font-bold text-muted tracking-wide">TARGET GROUPS</div>
+</div>
+
+<div class="max-w-lg mx-auto mb-1">
+  <div class="grid grid-cols-2 gap-2">
+    <div class="flex items-center gap-2 p-2 rounded" style="background:rgba(245,158,11,0.1);border:1px solid #f59e0b;">
+      <img src="https://cdn-icons-png.flaticon.com/512/3940/3940120.png" class="w-16 h-16 shrink-0" />
+      <div class="min-w-0 leading-tight">
+        <div class="text-lg font-bold" style="color:#f59e0b;line-height:1.2">Digital Artists</div>
+        <div class="text-sm text-muted" style="line-height:1.3">Showcase &amp; review creation process on social media</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 p-2 rounded" style="background:rgba(245,158,11,0.1);border:1px solid #f59e0b;">
+      <img src="https://cdn-icons-png.flaticon.com/512/8388/8388575.png" class="w-16 h-16 shrink-0" />
+      <div class="min-w-0 leading-tight">
+        <div class="text-lg font-bold" style="color:#f59e0b;line-height:1.2">Tutors</div>
+        <div class="text-sm text-muted" style="line-height:1.3">Create step-by-step visualization</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center my-1" style="height:50px;">
+  <svg viewBox="0 0 200 50" style="width:200px;height:50px;">
+    <defs>
+      <marker id="m-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#999"/>
+      </marker>
+    </defs>
+    <path d="M 30 0 C 45 10, 75 18, 98 42" stroke="#999" stroke-width="2" fill="none"/>
+    <path d="M 170 0 C 155 10, 125 18, 102 42" stroke="#999" stroke-width="2" fill="none"/>
+    <line x1="100" y1="42" x2="100" y2="48" stroke="#999" stroke-width="2" marker-end="url(#m-arrow)"/>
+  </svg>
+</div>
+
+<div class="flex justify-center mb-1">
+  <div class="px-5 py-2.5 rounded bg-gray/10 border border-gray/30 text-center flex flex-col items-center gap-1.5">
+    <img src="https://www.blender.org/wp-content/uploads/2020/07/blender_logo-1280x391.png" class="h-12 shrink-0" />
+    <span class="text-lg font-bold text-white">Add-on</span>
+  </div>
+</div>
+
+<div class="flex justify-center my-1" style="height:90px;">
+  <svg viewBox="0 0 300 90" style="width:300px;height:90px;">
+    <defs>
+      <marker id="s-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#999"/>
+      </marker>
+    </defs>
+    <line x1="150" y1="0" x2="150" y2="12" stroke="#999" stroke-width="2"/>
+    <path d="M 150 12 Q 150 30, 50 75" stroke="#999" stroke-width="2" fill="none" marker-end="url(#s-arrow)"/>
+    <line x1="150" y1="12" x2="150" y2="84" stroke="#999" stroke-width="2" marker-end="url(#s-arrow)"/>
+    <path d="M 150 12 Q 150 30, 250 75" stroke="#999" stroke-width="2" fill="none" marker-end="url(#s-arrow)"/>
+  </svg>
+</div>
+
+<div class="max-w-2xl mx-auto">
+  <div class="flex justify-center gap-4 items-start">
+    <div class="flex-1 max-w-[220px] flex flex-col items-center">
+      <div class="w-full p-3 rounded text-center" style="background:rgba(56,189,248,0.1);border:1px solid #38bdf8;">
+        <img src="https://cdn-icons-png.flaticon.com/512/4449/4449102.png" class="w-16 h-16 mx-auto mb-1.5" />
+        <div class="text-lg font-bold mb-0.5" style="color:#38bdf8;line-height:1.2">Rendered Output</div>
+        <div class="text-sm text-muted" style="line-height:1.3">No Blender UI. Stylized rendering of primitives</div>
+      </div>
+    </div>
+    <div class="flex-1 max-w-[220px] flex flex-col items-center mt-8">
+      <div class="w-full p-3 rounded text-center" style="background:rgba(56,189,248,0.1);border:1px solid #38bdf8;">
+        <img src="https://cdn-icons-png.flaticon.com/512/16008/16008186.png" class="w-16 h-16 mx-auto mb-1.5" />
+        <div class="text-lg font-bold mb-0.5" style="color:#38bdf8;line-height:1.2">Action Filtering</div>
+        <div class="text-sm text-muted" style="line-height:1.3">Skip experimental &amp; faulty steps via undotree</div>
+      </div>
+    </div>
+    <div class="flex-1 max-w-[220px] flex flex-col items-center">
+      <div class="w-full p-3 rounded text-center" style="background:rgba(56,189,248,0.1);border:1px solid #38bdf8;">
+        <img src="https://cdn-icons-png.flaticon.com/512/8540/8540857.png" class="w-16 h-16 mx-auto mb-1.5" />
+        <div class="text-lg font-bold mb-0.5" style="color:#38bdf8;line-height:1.2">Smart Camera</div>
+        <div class="text-sm text-muted" style="line-height:1.3">Smooth interpolated viewport path</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+# Existing Work
+
+<script setup>
+import { onMounted, onUnmounted, nextTick } from 'vue'
+
+let intervals = []
+let observer = null
+
+onMounted(() => {
+  nextTick(() => {
+    const panels = document.querySelectorAll('.scroll-panel')
+    
+    panels.forEach(panel => {
+      let autoScroll = true
+      const content = panel.querySelector('.scroll-content')
+      const totalH = content.scrollHeight / 2
+
+      const interval = setInterval(() => {
+        if (!autoScroll) return
+        panel.scrollTop += 0.8
+        if (panel.scrollTop >= totalH - panel.clientHeight) {
+          panel.scrollTop = 0
+        }
+      }, 30)
+      intervals.push(interval)
+
+      const pause = () => { autoScroll = false }
+      panel.addEventListener('wheel', pause, { passive: true })
+      panel.addEventListener('touchstart', pause, { passive: true })
+    })
+
+    const slide = document.querySelector('.slidev-slide')
+    if (slide) {
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            intervals.forEach(id => clearInterval(id))
+            intervals = []
+            panels.forEach(p => { p.scrollTop = 0 })
+            panels.forEach(panel => {
+              let autoScroll = true
+              const content = panel.querySelector('.scroll-content')
+              const totalH = content.scrollHeight / 2
+              const interval = setInterval(() => {
+                if (!autoScroll) return
+                panel.scrollTop += 0.8
+                if (panel.scrollTop >= totalH - panel.clientHeight) {
+                  panel.scrollTop = 0
+                }
+              }, 30)
+              intervals.push(interval)
+              const pause = () => { autoScroll = false }
+              panel.addEventListener('wheel', pause, { passive: true })
+              panel.addEventListener('touchstart', pause, { passive: true })
+            })
+          }
+        })
+      })
+      observer.observe(slide)
+    }
+  })
+})
+
+onUnmounted(() => {
+  intervals.forEach(id => clearInterval(id))
+  if (observer) observer.disconnect()
+})
+</script>
+
+<style>
+.scroll-panel { height: 260px; overflow-y: auto; position: relative; }
+.scroll-panel::-webkit-scrollbar { width: 4px; }
+.scroll-panel::-webkit-scrollbar-track { background: transparent; }
+.scroll-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+.scroll-card { padding: 6px 8px; margin-bottom: 6px; border-radius: 6px; font-size: 12px; }
+.scroll-card a { color: #999; text-decoration: none; display: block; font-size: 11px; margin-top: 1px; }
+.scroll-card a:hover { opacity: 0.6; }
+.scroll-cat { font-size: 13px; font-weight: 700; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+</style>
+
+<div class="grid grid-cols-2 gap-3 h-[540px]">
+  <div class="scroll-panel rounded p-2" style="background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);">
+    <div class="scroll-cat" style="color:#4ade80;">Timelapse Recording</div>
+    <div class="scroll-content">
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Timelapse Recorder</div>
+        <div class="text-muted" style="font-size:11px;">Viewport screenshots at intervals</div>
+        <a href="https://superhivemarket.com/products/timelapse-recorder" target="_blank">superhivemarket.com/products/timelapse-recorder</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">TIMELAPSE Tool (Fwiller)</div>
+        <div class="text-muted" style="font-size:11px;">Background viewport capture, auto-stop</div>
+        <a href="https://fwiller.gumroad.com/l/timelapse" target="_blank">fwiller.gumroad.com/l/timelapse</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">ScreenSnap Turntable</div>
+        <div class="text-muted" style="font-size:11px;">Viewport screenshots + turntable rotation</div>
+        <a href="https://designersoup.itch.io/screensnap-blender-timelapse-plugin" target="_blank">designersoup.itch.io/screensnap-blender-timelapse-plugin</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Timelapse Extension</div>
+        <div class="text-muted" style="font-size:11px;">Timer-based screenshots, JPG/PNG</div>
+        <a href="https://extensions.blender.org/add-ons/timelapse-extension/" target="_blank">extensions.blender.org/add-ons/timelapse-extension</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Timelapse Studio</div>
+        <div class="text-muted" style="font-size:11px;">Periodic viewport screenshots → timelapse</div>
+        <a href="https://superhivemarket.com/products/timelapse-studio--periodic-screenshots" target="_blank">superhivemarket.com/products/timelapse-studio</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">ReelFlow-Pro</div>
+        <div class="text-muted" style="font-size:11px;">Change-aware viewport capture</div>
+        <a href="https://superhivemarket.com/products/reelflow-pro" target="_blank">superhivemarket.com/products/reelflow-pro</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Eastape Timelapse Pro</div>
+        <div class="text-muted" style="font-size:11px;">Auto-rotate viewport for smooth timelapse</div>
+        <a href="https://www.eastapefilms.com/blogs/eastape-timelapse-pro" target="_blank">eastapefilms.com/blogs/eastape-timelapse-pro</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Timelapse Orbit 2.0 (rileyb3d)</div>
+        <div class="text-muted" style="font-size:11px;">Second viewport orbit during editing</div>
+        <a href="https://rileyb3d.com/tools/3031da13-fe01-80a0-8d88-f8998c47569c" target="_blank">rileyb3d.com/timelapse-orbit</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">SimpleTimelapser (Jorhlok)</div>
+        <div class="text-muted" style="font-size:11px;">Render from cameras at intervals</div>
+        <a href="https://github.com/Jorhlok/SimpleTimelapser" target="_blank">github.com/Jorhlok/SimpleTimelapser</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Blender Timelapse Tool (aj-phillips)</div>
+        <div class="text-muted" style="font-size:11px;">Timelapse from existing viewport animations</div>
+        <a href="https://github.com/aj-phillips/Blender-Timelapse-Tool" target="_blank">github.com/aj-phillips/Blender-Timelapse-Tool</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Blender Time Lapse (jeremyyysan)</div>
+        <div class="text-muted" style="font-size:11px;">Action-count-based screenshot trigger</div>
+        <a href="https://jeremyyysan.gumroad.com/l/xahmd" target="_blank">jeremyyysan.gumroad.com/l/xahmd</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">SIMPLE CAPTURE (Chipp Walters)</div>
+        <div class="text-muted" style="font-size:11px;">Viewport snapshots &amp; video recording</div>
+        <a href="https://www.youtube.com/watch?v=LAQBPPnbLBM" target="_blank">youtube.com/watch?v=LAQBPPnbLBM</a>
+      </div>
+      <!-- duplicate for seamless loop -->
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Timelapse Recorder</div>
+        <div class="text-muted" style="font-size:11px;">Viewport screenshots at intervals</div>
+        <a href="https://superhivemarket.com/products/timelapse-recorder" target="_blank">superhivemarket.com/products/timelapse-recorder</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">TIMELAPSE Tool (Fwiller)</div>
+        <div class="text-muted" style="font-size:11px;">Background viewport capture, auto-stop</div>
+        <a href="https://fwiller.gumroad.com/l/timelapse" target="_blank">fwiller.gumroad.com/l/timelapse</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">ScreenSnap Turntable</div>
+        <div class="text-muted" style="font-size:11px;">Viewport screenshots + turntable rotation</div>
+        <a href="https://designersoup.itch.io/screensnap-blender-timelapse-plugin" target="_blank">designersoup.itch.io/screensnap-blender-timelapse-plugin</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Timelapse Extension</div>
+        <div class="text-muted" style="font-size:11px;">Timer-based screenshots, JPG/PNG</div>
+        <a href="https://extensions.blender.org/add-ons/timelapse-extension/" target="_blank">extensions.blender.org/add-ons/timelapse-extension</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Timelapse Studio</div>
+        <div class="text-muted" style="font-size:11px;">Periodic viewport screenshots → timelapse</div>
+        <a href="https://superhivemarket.com/products/timelapse-studio--periodic-screenshots" target="_blank">superhivemarket.com/products/timelapse-studio</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">ReelFlow-Pro</div>
+        <div class="text-muted" style="font-size:11px;">Change-aware viewport capture</div>
+        <a href="https://superhivemarket.com/products/reelflow-pro" target="_blank">superhivemarket.com/products/reelflow-pro</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Eastape Timelapse Pro</div>
+        <div class="text-muted" style="font-size:11px;">Auto-rotate viewport for smooth timelapse</div>
+        <a href="https://www.eastapefilms.com/blogs/eastape-timelapse-pro" target="_blank">eastapefilms.com/blogs/eastape-timelapse-pro</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">Timelapse Orbit 2.0 (rileyb3d)</div>
+        <div class="text-muted" style="font-size:11px;">Second viewport orbit during editing</div>
+        <a href="https://rileyb3d.com/tools/3031da13-fe01-80a0-8d88-f8998c47569c" target="_blank">rileyb3d.com/timelapse-orbit</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);">
+        <div style="color:#4ade80;font-weight:600;">SimpleTimelapser (Jorhlok)</div>
+        <div class="text-muted" style="font-size:11px;">Render from cameras at intervals</div>
+        <a href="https://github.com/Jorhlok/SimpleTimelapser" target="_blank">github.com/Jorhlok/SimpleTimelapser</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-panel rounded p-2" style="background:rgba(192,132,252,0.05);border:1px solid rgba(192,132,252,0.2);">
+    <div class="scroll-cat" style="color:#c084fc;">Macro / Action Recording</div>
+    <div class="scroll-content">
+      <div class="scroll-card" style="background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.15);">
+        <div style="color:#c084fc;font-weight:600;">Action Recorder (InamuraJIN)</div>
+        <div class="text-muted" style="font-size:11px;">Records bpy.ops macros, import/export</div>
+        <a href="https://github.com/InamuraJIN/ActionRecorder" target="_blank">github.com/InamuraJIN/ActionRecorder</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.15);">
+        <div style="color:#c084fc;font-weight:600;">Macros Recorder (dairin0d)</div>
+        <div class="text-muted" style="font-size:11px;">Legacy, records operators as Python</div>
+        <a href="https://github.com/dairin0d/macros-recorder" target="_blank">github.com/dairin0d/macros-recorder</a>
+      </div>
+      <!-- duplicate -->
+      <div class="scroll-card" style="background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.15);">
+        <div style="color:#c084fc;font-weight:600;">Action Recorder (InamuraJIN)</div>
+        <div class="text-muted" style="font-size:11px;">Records bpy.ops macros, import/export</div>
+        <a href="https://github.com/InamuraJIN/ActionRecorder" target="_blank">github.com/InamuraJIN/ActionRecorder</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.15);">
+        <div style="color:#c084fc;font-weight:600;">Macros Recorder (dairin0d)</div>
+        <div class="text-muted" style="font-size:11px;">Legacy, records operators as Python</div>
+        <a href="https://github.com/dairin0d/macros-recorder" target="_blank">github.com/dairin0d/macros-recorder</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-3" style="height:260px;">
+  <div class="scroll-panel rounded p-2" style="background:rgba(88,166,255,0.05);border:1px solid rgba(88,166,255,0.2);">
+    <div class="scroll-cat" style="color:#58a6ff;">Making-of / Breakdown / Camera</div>
+    <div class="scroll-content">
+      <div class="scroll-card" style="background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.15);">
+        <div style="color:#58a6ff;font-weight:600;">Breakdown Maker</div>
+        <div class="text-muted" style="font-size:11px;">Cinematic breakdown from final scene</div>
+        <a href="https://superhivemarket.com/products/breakdown-maker" target="_blank">superhivemarket.com/products/breakdown-maker</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.15);">
+        <div style="color:#58a6ff;font-weight:600;">AutoCam (RenderRides)</div>
+        <div class="text-muted" style="font-size:11px;">WASD flythrough → camera curves</div>
+        <a href="https://extensions.blender.org/add-ons/autocam/" target="_blank">extensions.blender.org/add-ons/autocam</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.15);">
+        <div style="color:#58a6ff;font-weight:600;">SavePoints (unclepomedev)</div>
+        <div class="text-muted" style="font-size:11px;">Auto-save snapshots + timelapse render</div>
+        <a href="https://extensions.blender.org/add-ons/savepoints/" target="_blank">extensions.blender.org/add-ons/savepoints</a>
+      </div>
+      <!-- duplicate -->
+      <div class="scroll-card" style="background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.15);">
+        <div style="color:#58a6ff;font-weight:600;">Breakdown Maker</div>
+        <div class="text-muted" style="font-size:11px;">Cinematic breakdown from final scene</div>
+        <a href="https://superhivemarket.com/products/breakdown-maker" target="_blank">superhivemarket.com/products/breakdown-maker</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.15);">
+        <div style="color:#58a6ff;font-weight:600;">AutoCam (RenderRides)</div>
+        <div class="text-muted" style="font-size:11px;">WASD flythrough → camera curves</div>
+        <a href="https://extensions.blender.org/add-ons/autocam/" target="_blank">extensions.blender.org/add-ons/autocam</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.15);">
+        <div style="color:#58a6ff;font-weight:600;">SavePoints (unclepomedev)</div>
+        <div class="text-muted" style="font-size:11px;">Auto-save snapshots + timelapse render</div>
+        <a href="https://extensions.blender.org/add-ons/savepoints/" target="_blank">extensions.blender.org/add-ons/savepoints</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-panel rounded p-2" style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.2);">
+    <div class="scroll-cat" style="color:#f59e0b;">Academic Literature</div>
+    <div class="scroll-content">
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">History Assisted View Authoring</div>
+        <div class="text-muted" style="font-size:11px;">Chen et al., CHI 2014 — modeling history for making-of</div>
+        <a href="https://doi.org/10.1145/2556288.2557009" target="_blank">doi.org/10.1145/2556288.2557009</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">Chronicle</div>
+        <div class="text-muted" style="font-size:11px;">Grossman et al., UIST 2010 — video + action logging</div>
+        <a href="https://doi.org/10.1145/1866029.1866054" target="_blank">doi.org/10.1145/1866029.1866054</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">3D Timeline</div>
+        <div class="text-muted" style="font-size:11px;">Doboš et al., EG 2014 — provenance from snapshots</div>
+        <a href="https://doi.org/10.1111/cgf.12311" target="_blank">doi.org/10.1111/cgf.12311</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">Workflow Graphs</div>
+        <div class="text-muted" style="font-size:11px;">Chang et al., GI 2020 — operator sequence analysis</div>
+        <a href="https://doi.org/10.20380/GI2020.13" target="_blank">doi.org/10.20380/GI2020.13</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">History in Motion</div>
+        <div class="text-muted" style="font-size:11px;">Veuskens et al., SCF 2023 — animated modeling history</div>
+        <a href="https://doi.org/10.1145/3623263.3623358" target="_blank">doi.org/10.1145/3623263.3623358</a>
+      </div>
+      <!-- duplicate -->
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">History Assisted View Authoring</div>
+        <div class="text-muted" style="font-size:11px;">Chen et al., CHI 2014 — modeling history for making-of</div>
+        <a href="https://doi.org/10.1145/2556288.2557009" target="_blank">doi.org/10.1145/2556288.2557009</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">Chronicle</div>
+        <div class="text-muted" style="font-size:11px;">Grossman et al., UIST 2010 — video + action logging</div>
+        <a href="https://doi.org/10.1145/1866029.1866054" target="_blank">doi.org/10.1145/1866029.1866054</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">3D Timeline</div>
+        <div class="text-muted" style="font-size:11px;">Doboš et al., EG 2014 — provenance from snapshots</div>
+        <a href="https://doi.org/10.1111/cgf.12311" target="_blank">doi.org/10.1111/cgf.12311</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">Workflow Graphs</div>
+        <div class="text-muted" style="font-size:11px;">Chang et al., GI 2020 — operator sequence analysis</div>
+        <a href="https://doi.org/10.20380/GI2020.13" target="_blank">doi.org/10.20380/GI2020.13</a>
+      </div>
+      <div class="scroll-card" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+        <div style="color:#f59e0b;font-weight:600;">History in Motion</div>
+        <div class="text-muted" style="font-size:11px;">Veuskens et al., SCF 2023 — animated modeling history</div>
+        <a href="https://doi.org/10.1145/3623263.3623358" target="_blank">doi.org/10.1145/3623263.3623358</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+---
+
+# ScreenSnap in Detail
+
+<div class="grid grid-cols-[1fr_auto] gap-4 items-start mb-4">
+
+<div>
+
+<div class="p-3 rounded mb-3" style="background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);">
+  <div class="text-sm font-bold mb-2" style="color:#4ade80;">Approach</div>
+  <div class="text-sm text-muted leading-relaxed">
+    Screenshot-based timelapse. Captures viewport as screenshots at configurable intervals, then compiles into a video. No scene render, no action tracking.
+  </div>
+  <div class="mt-3 text-xs text-muted italic">[ Add further approach details here ]</div>
+</div>
+
+<div class="p-3 rounded" style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);">
+  <div class="text-sm font-bold mb-2" style="color:#ef4444;">Limitations</div>
+  <ul class="text-sm text-muted leading-relaxed list-disc pl-4">
+    <li>Captures full Blender UI, not clean scene render</li>
+    <li>No action / operator tracking</li>
+    <li>No undo-tree filtering</li>
+    <li>No camera interpolation</li>
+    <li>Fixed interval recording, no adaptive timing</li>
+  </ul>
+  <div class="mt-3 text-xs text-muted italic">[ Add further limitations here ]</div>
+</div>
+
+</div>
+
+<div>
+  <div class="text-sm font-bold mb-2">ScreenSnap Example Output:</div>
+  <video src="./ScreenSnap_Example_Video.mp4" autoplay loop muted class="w-40 rounded-xl bg-black"></video>
+  <div class="mt-1" style="color:#999;font-size:11px;">
+    <a href="https://www.youtube.com/watch?v=iDGZUz5b444" target="_blank" style="color:#999;text-decoration:none;font-size:11px;">youtube.com/watch?v=iDGZUz5b444</a>
+    <span style="color:#999;font-size:11px;">, accessed 2026-06-15</span>
+  </div>
+</div>
+
+</div>
+
+---
+
+# Notes
+
+> This slide exists just temporarily to take notes during creation process. Don't remove or edit it unless explicitly asked :)
+
+Problems:
+- Creator wants create an educational & entertaining video of how he edited a Blender scene:
+  - Look better than screen-recording / viewport-capture. No Blender UI.
+  - Automatic removal of experimental & faulty steps.
+  - Automatic positioning of camera.
+
+Presentation Agenda (Idea & Plans):
+- Motivation + Idea
+- Similar existing plugins/tools/literature
+- Concrete examples, outline envisioned end-to-end workflow/walkthrough, define target group
+- Feasibility (outline how you plan to implement it)
+- Roadmap (what do you plan to be done with by which point, esp. Milestone)
+- Minimum viable product versus stretch goals
+- Uncertainties: what is not fully decided yet? Present options/alternatives for parts where you might need support for your decision
+- Questions to audience, about their experience, their thoughts?
+
++ Mögliche Erweiterungen, z.B. Action Inspector (vgl. Paintnet paper), Scene/Workflow Analysis (vgl. Dragon paper), Version-Tracking or Undo-Tree, Comparison-Lens, Timeline, Semantic-Diffing (Replay for specific components), Animations between Steps, Generation from File
+
+---
+
+# The Idea
+
+- **Track** user actions in Blender in real-time
+- **Record** viewport position, operators, scene mutations
+- **Export** all data to a portable recording file
+- **Replay:** open recording in a clean Blender project
+- **Render** a timelapse video with:
+  - Smooth camera animation (interpolated from viewport)
+  - Every meaningful action as a rendered frame
+  - Undone actions filtered out via undo-tree tracking
+
+---
+
+# Workflow
+
+```mermaid {scale: 0.9}
+flowchart LR
+  A[🎨 User edits]<-->B[📝 Recording]
+  B-->C[💾 Export\nrecording file]
+  C-->D[🔄 New Blender\nproject + Add-on]
+  D-->E[🎬 Render\ntimelapse video]
+  
+  style A fill:#1a1a1a,color:#fff,stroke:#333
+  style B fill:#1a1a1a,color:#fff,stroke:#333
+  style C fill:#1a1a1a,color:#fff,stroke:#333
+  style D fill:#1a1a1a,color:#fff,stroke:#333
+  style E fill:#444,color:#fff,stroke:#666,stroke-width:2
+```
+
+---
+
+
+
+# Feasibility: Tracking
+
+**11 API techniques tested** - all confirmed working in Blender 5.1
+
+<div class="grid grid-cols-2 gap-2 mt-4 text-sm">
+
+<div class="p-2 rounded bg-gray/5">
+  <span class="i-carbon:checkmark text-green align-middle" /> Operator Polling <span class="text-muted">(ops)</span>
+</div>
+<div class="p-2 rounded bg-gray/5">
+  <span class="i-carbon:checkmark text-green align-middle" /> Viewport tracking <span class="text-muted">(camera path)</span>
+</div>
+<div class="p-2 rounded bg-gray/5">
+  <span class="i-carbon:checkmark text-green align-middle" /> Undo/Redo handlers
+</div>
+<div class="p-2 rounded bg-gray/5">
+  <span class="i-carbon:checkmark text-green align-middle" /> Depsgraph <span class="text-muted">(scene changes)</span>
+</div>
+<div class="p-2 rounded bg-gray/5">
+  <span class="i-carbon:checkmark text-green align-middle" /> Render lifecycle hooks
+</div>
+<div class="p-2 rounded bg-gray/5">
+  <span class="i-carbon:checkmark text-green align-middle" /> Sculpt mode detection
+</div>
+
+</div>
+
+<div class="mt-4 text-sm text-muted">
+  <span class="i-carbon:information inline-block align-middle mr-1" />
+  Full test suite at <code>test_action_tracker.py</code>
+</div>
+
+---
+
+# Feasibility: Architecture
+
+<div class="grid grid-cols-[1fr_auto_1fr] gap-2 items-center mt-4">
+
+<div class="p-3 rounded border border-gray/20">
+  <div class="font-bold text-sm">Fusion Engine</div>
+  <div class="text-xs text-muted mt-1">
+    Fuse multiple event sources into<br/>a unified action timeline
+  </div>
+</div>
+
+<div class="text-xl text-muted"><span class="i-carbon:arrow-right" /></div>
+
+<div class="p-3 rounded border border-gray/20">
+  <div class="font-bold text-sm">Timeline → Frames</div>
+  <div class="text-xs text-muted mt-1">
+    Each action → one rendered frame<br/>Camera: interpolated from viewport
+  </div>
+</div>
+
+</div>
+
+<div class="mt-6 p-3 rounded bg-gray/5 text-sm">
+
+**Challenge:** No single `operator_pre/post` callback exists  
+→ Must fuse: `OP_POLL` + `DEPSGRAPH` + `SNAPSHOT` + `VIEW_TIMER`
+
+**Script executions** detectable, but non-`bpy.ops` steps inside scripts only visible as deltas (before/after comparison)
+
+</div>
+
+---
+
+# Recording Format: Open Question ⚡
+
+<div class="grid grid-cols-[1fr_1fr] gap-4 mt-4">
+
+<div class="p-3 rounded border border-gray/20">
+  <div class="font-bold text-sm">A) File-based <span class="i-carbon:checkmark text-green inline-block align-middle ml-1" /></div>
+  <div class="text-xs text-muted mt-2">
+    Export recording to a<br/><code>.blend-recording/</code> directory
+    <hr class="my-2" />
+    Open in new Blender project →<br/>Add-on reconstructs scene + camera<br/>→ Render timelapse video
+  </div>
+  <div class="text-xs text-muted mt-1">✅ Clean separation · ✅ Reusable</div>
+</div>
+
+<div class="p-3 rounded border border-gray/20 op-50">
+  <div class="font-bold text-sm">B) Same-scene scene</div>
+  <div class="text-xs text-muted mt-2">
+    Add timeline scene inside<br/>current project
+    <hr class="my-1" />
+    ❌ Clutters original project<br/>❌ May interfere with editing
+  </div>
+</div>
+
+</div>
+
+<div class="mt-4 p-3 rounded bg-yellow/10 border border-yellow/20 text-sm">
+  <span class="i-carbon:idea inline-block align-middle mr-1" />
+  <strong>My preference:</strong> File-based export → new Blender project → replay
+</div>
+
+---
+
+# Render Approach: Open Question ⚡
+
+<div class="grid grid-cols-[1fr_1fr] gap-4 mt-4">
+
+<div class="p-3 rounded border border-gray/20">
+  <div class="font-bold text-sm">Viewport Render</div>
+  <div class="text-xs text-muted mt-2">
+    <code>bpy.ops.render.opengl(write_still=True)</code>
+  </div>
+  <div class="text-xs text-muted mt-1">
+    Captures what the user actually saw<br/>→ matches editing experience<br/>→ fast, no render engine needed
+  </div>
+</div>
+
+<div class="p-3 rounded border border-gray/20">
+  <div class="font-bold text-sm">Full Render</div>
+  <div class="text-xs text-muted mt-2">
+    Cycles / Eevee , final quality
+  </div>
+  <div class="text-xs text-muted mt-1">
+    Each frame is a proper render<br/>→ beautiful but SLOW<br/>→ needs GPU time
+  </div>
+</div>
+
+</div>
+
+<div class="mt-4 p-3 rounded bg-blue/10 border border-blue/20 text-sm">
+  <span class="i-carbon:idea inline-block align-middle mr-1" />
+  <strong>Possible:</strong> Viewport render for preview / development, full render for final export
+</div>
+
+---
+
+# Roadmap
+
+| When | What |
+|------|------|
+| **Jun 10 to 17** | ✅ Feasibility study · 📍 **Idea Presentation** |
+| **Jun 17 to 24** | Recording engine: fusion pipeline + file export |
+| **Jun 24 to Jul 1** | Replay engine: scene reconstruction + camera interpolation |
+| **Jul 1** | 📍 **Milestone:** recording → replay roundtrip working |
+| **Jul 1 to 8** | MVP: render timelapse video from recording |
+| **Jul 8 to 15** | Polish: UI, edge cases, stretch goals |
+| **Jul 15** | 📍 **Final Presentation & Demo** |
+
+---
+
+# MVP vs Stretch Goals
+
+<div class="grid grid-cols-[1fr_1fr] gap-4 mt-4">
+
+<div class="p-3 rounded border border-green/30 bg-green/5">
+  <div class="font-bold text-green">MVP</div>
+  <ul class="text-xs mt-2 text-muted">
+    <li>Action recording (ops + viewport)</li>
+    <li>File export / import</li>
+    <li>Viewport-render timelapse</li>
+    <li>Basic camera interpolation</li>
+    <li>Simple UI panel</li>
+  </ul>
+</div>
+
+<div class="p-3 rounded border border-purple/30 bg-purple/5">
+  <div class="font-bold text-purple">Stretch Goals</div>
+  <ul class="text-xs mt-2 text-muted">
+    <li>Undo-tree filtering</li>
+    <li>Sculpt mode recording</li>
+    <li>Custom frame timing</li>
+    <li>Full Cycles/Eevee render support</li>
+    <li>Vertex/edge visualization overlays</li>
+  </ul>
+</div>
+
+</div>
+
+---
+
+# Uncertainties 🤔
+
+- **Recording format** -- What data structure captures all events efficiently?
+- **Camera interpolation** -- Linear vs. spline? How to handle sudden jumps?
+- **Timing model** -- Fixed interval (1 frame / N actions)? Adaptive based on action significance?
+- **Script execution** -- How to meaningfully represent script runs in the timeline?
+- **Scale** -- How much recording data does an hour of editing produce?
+- **Blender version compatibility** -- API stability across 5.x releases?
+
+---
+
+# Questions to Audience 💬
+
+<div class="grid grid-cols-2 gap-6 mt-4">
+
+<div class="p-4 rounded border border-gray/20">
+  <div class="font-bold">Recording Format</div>
+  <div class="text-sm text-muted mt-2">Would you prefer a <strong>single file</strong> (e.g. JSON) or a <strong>directory</strong> with assets? Any prior experience with similar export formats?</div>
+</div>
+
+<div class="p-4 rounded border border-gray/20">
+  <div class="font-bold">Render Quality</div>
+  <div class="text-sm text-muted mt-2">Is <strong>viewport render</strong> quality sufficient, or do you expect <strong>full Cycles</strong> quality for a timelapse?</div>
+</div>
+
+<div class="p-4 rounded border border-gray/20">
+  <div class="font-bold">Use Cases</div>
+  <div class="text-sm text-muted mt-2">What would <strong>you</strong> use a render-timelapse tool for? Any features you miss in existing tools?</div>
+</div>
+
+<div class="p-4 rounded border border-gray/20">
+  <div class="font-bold">Workflow</div>
+  <div class="text-sm text-muted mt-2">Recording → separate project → render? Or in-place timeline scene? Which feels more natural?</div>
+</div>
+
+</div>
+
+---
+
+# Thanks!
+
+<div class="text-xl font-bold mt-8">Questions & Feedback Welcome</div>
+
+<div class="mt-4 text-sm text-muted">
+  <span class="i-carbon:video inline-block align-middle mr-1" />
+  <code>https://github.com/moellh/blender-render-timelapse</code>
+</div>
