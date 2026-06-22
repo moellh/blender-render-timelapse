@@ -1,0 +1,14 @@
+[blender_extension]
+name = "Render Timelapse"
+version = "0.1.0"
+blender_version_min = "5.1.0"
+license = [
+    { identifier = "GPL-3.0-or-later" },
+]
+copyright = ["2026 Henrik Möllmann"]
+
+[plugin]
+type = "addon"
+
+[repositories]
+local = "."
