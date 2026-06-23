@@ -1,0 +1,18 @@
+schema_version = "1.0.0"
+id = "render_timelapse"
+version = "0.1.0"
+name = "Render Timelapse"
+tagline = "Record your Blender editing process and create a timelapse video"
+maintainer = "Henrik Möllmann"
+type = "add-on"
+blender_version_min = "5.1.0"
+license = ["SPDX:GPL-3.0-or-later"]
+copyright = ["2026 Henrik Möllmann"]
+tags = ["Development"]
+platforms = ["linux-x64"]
+
+[permissions]
+files = "Save and load recording data"
+
+[build]
+paths_exclude_pattern = ["__pycache__/", ".git", "*.zip", "node_modules/"]
