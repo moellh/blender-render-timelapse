@@ -6,7 +6,6 @@
 > Tasks part of initial 2-week implementation of core functionalities for scoped MVP.
 
 - Tracking:
-    - [ ] Operator Polling: Complete history of operators incl. timestamp
     - [ ] Depsgraph Updates: Complete history of depsgraph updates incl. timestamp & object IDs
     - [ ] Viewport Draw: Complete history of viewport changes incl timestamp and viewport perspective
     - [ ] Undo/Redo: Map undos & redos to operators and create undo-tree of operators
@@ -38,4 +37,9 @@
 
 > Finished or aborted from above sections.
 
-- [ ] ...
+- [x] Set up Blender Add-on / Extension
+- [x] DISCARDED: Operator Polling for tracking user actions: Complete history of operators incl. timestamp
+    - Discarded because not all changes are done by operators. Maybe this task is reactivated in smaller for to address possible further tasks: "Semantic grouping of actions" or "Workflow Analysis".
+- [x] gzip JSON on stopping the recording with toggle in UI
+- [x] Record viewport only on substantial change or time
+    - Possibly improved upon further in the future by tracking plots of when new viewport states are written incl. viewport variables
