@@ -1,7 +1,7 @@
 import tomllib
 from pathlib import Path
 
-from . import panel
+from . import panel, tracking
 from .log import get_logger
 
 # Logging object instead of print
@@ -12,7 +12,7 @@ _manifest = tomllib.loads(Path(__file__).with_name("blender_manifest.toml").read
 _version = _manifest["version"]
 
 # Modules that the add-on registers
-_modules = (panel,)
+_modules = (panel, tracking)
 
 
 def register():

@@ -2,6 +2,20 @@
 
 > Note that this Blog is in reverse chronological order, i.e. newest update on top.
 
+## 2026-06-23
+
+- Writing initial tasks to [TODO.md](./TODO.md), categorized into Core Functionality, Optimization, Further Tasks, and Archived Tasks
+- Working on Tracking implementation:
+    - Early noticed that Operator-Polling can be discarded as tracking method because it only captures some user actions. Instead rely on DepsGraph (returning changed object ID), Viewport handler, and reading scene object data directly. Also using undo- & redo-handlers for recognizing undone or redone state without having to store additional data.
+    - Writing tracking data into JSON and optionally adding or replacing it with a gzipped version, which dramatically decreases file size without having to optimize the file format. Simple tracked workflows show filesizes in the few KB to MB range. Of course, user actions adding many vertices or creating topology changes and storing the entire mesh again dramatically increase the file size. Still okay but performance-improvements especially on larger models remains important. Just tested on the Sponza model which has 145185 vertices and edited a few vertices being tracked by the plugin: Raw JSON quickly scales to 80MB, gzipped version is 7MB, zstd compressed file with max. compression is 1MB (but takes a few seconds to compress).
+    - After testing multiple layouts for the JSON file, like storing an initial .blend file and tracking further changes, I instead decided on storing all data in the json except for assets, i.e. the add-on regularly stores data to a JSON files and puts any assets used like textures into an assets/ directory to retain assets even when removed in the actual workspace of the user editing the scene. Inside the JSON, some metadata and then a list of "viewport" entries as well as a list of "state" nodes. The viewport entries capture noticable changed viewport state, e.g. angle changed by some degree or distance to pivot point changed by 1% relative to its current distance. Also, only changed data is written into future viewport states, else reference to previous viewport state to save space. Similarly, state entries store visible scene information like the mesh. Then, on mesh update, preferably only the updated mesh data is changed which is currently decided on by <50% mesh data changed or no topology changes. If a state variable is not updated, a reference points to the corresponding entry with the original value.
+        - Note that I'm still working on which state variables to capture, so which should be tracked and which must not because irrelevant to rendering. I'll likely start a list of properties tracked or not tracked.
+- Added UI N-panel (i.e. opened via N key) in 3D-viewport which has two sections: Recording, Rendering. Rendering is still empty. Recording has start/stop button. While tracking runs, some data is shown like number of captured states & viewports, as well as raw JSON size. Below, you can select the directory where the file is saved, defaulting to blenders temporary directory at /tmp/blender_*/ on Linux. Then, there are some settings for setting save interval, max. file size and file stored on stopping the recording: JSON or gzipped JSON.
+
+## 2026-06-22
+
+- Setting up basic Blender Add-on/Extension with placeholder UI and Operator rather than using a simple script.
+
 ## 2026-06-17
 
 - Creating Slides for Idea Presentation using [Slidev](https://sli.dev/), which covers motivation incl. target group & main goals, existing plugins & similar work, basic workflow, user actions and possible tracking techniques, plan, uncertainties and brief set of questions. See slides for further information: [PDF export of slides](./slides/idea/slides-export-dark.pdf).
