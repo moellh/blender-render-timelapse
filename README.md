@@ -16,3 +16,21 @@ Blender add-on which generates timelapse video of rendered scene from recorded e
 ## Repo Structure
 
 TODO: State repo structure as tree when file structure is better known.
+
+## Recorded Data
+
+> See [TODO.md](/TODO.md) for further/future recorded data, which are currently not part.
+
+- ...
+
+
+### Not recorded
+
+> Usually because not relevant to recording because implicitly tracked or beyond current scope.
+
+Implicitly tracked / Not necessary to track:
+- [Constraints](https://docs.blender.org/manual/en/latest/animation/constraints/index.html)
+- [Armatures](https://docs.blender.org/manual/en/latest/animation/armatures/index.html)
+
+Beyond current scope:
+- Animation data
