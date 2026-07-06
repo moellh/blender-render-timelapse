@@ -22,7 +22,7 @@
 
 - Optimize mesh storing:
     - Fixed issues where full mesh is unnecessarily stored again, dramatically decreasing JSON file size growth for large models when only a few vertices are changed.
-    - Fixed EDIT and SCULPT mode requiring different treatment when editing the mesh by reading from different data of Blender API
+    - Fixed EDIT_MESH and SCULPT mode requiring different treatment when editing the mesh by reading from different data of Blender API
     - Before a mesh was either stored as "full mesh" or "individual vertices" where changed. Handling topology was not handled correctly, especially when using Dyntopo in sculpt mode. Thus, besides "full mesh" storage, implemented "mesh patches", similar to how [Git Diff or Patch files](https://git-scm.com/docs/git-diff) present source code changes. So, unless more than 50% of the mesh are changed, any changes to the mesh are stored individually in the JSON. Unless 100 states with  patches where already applied to the mesh after a "full mesh" state or some ratio of the vertices where patched, only "mesh patches" are used in the JSON rather than "full mesh".
 - Implemented basic handling of assets: Currently only textures are covered. So, next to the JSON or gzipped file, an assets folder contains copies of the assets being used in while recording. With hashes, any files there are deduplicated and uniquely identified. Storing them additionally there ensures that any deleted assets in the users project directory are still captured by the recording. However, any assets are currently only weakly associated with materials or other Blender functionalities. This still needs to be correctly implemented.
 
