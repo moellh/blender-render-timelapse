@@ -1,3 +1,7 @@
+"""
+Logging setup, incl. logging to stderr and file.
+"""
+
 import logging
 import os
 import tempfile
