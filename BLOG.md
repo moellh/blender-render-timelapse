@@ -2,6 +2,12 @@
 
 > Note that this Blog is in reverse chronological order, i.e. newest update on top.
 
+## until 2026-07-07
+
+- Further modularize recording files: Put meshes into separate files in `meshes_<timestamp>/` directory, always compressed to make JSON smaller and decrease size of any intermediately-decompressed files, e.g. decrease chance of GB+ files in long sessions.
+- Add `demo/` dir for recording a simple demo creation process with the working plugin. Current idea is to create a car given reference images. May change or simplify since I'm not yet as good in creating models, so may take unnecessarily long time for little benefit.
+- Restructuring and cleaning up the add-on a bit.
+
 ## until 2026-07-01
 
 - Implementation of Basic Rendering from Recorded file to complete full add-on pipeline, though incomplete:
