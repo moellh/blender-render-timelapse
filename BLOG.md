@@ -2,6 +2,32 @@
 
 > Note that this Blog is in reverse chronological order, i.e. newest update on top.
 
+## until 2026-07-15
+
+- Filter out viewport samples from undone actions
+- Store materials & shaders as separate `.blend` files, so full state storage for them just as for topology changes in mesh. Storing blend files simplifies storing all material & shader attributes.
+    - The "Warn at (MB)" UI option still only tracks the JSON and then simply shows a warning at 90%. Would need to be applied to all data in the future since lots of data removed from JSON. Though, besides tracking mesh sizes, user likely already knows asset sizes and material sizes, so not as critical to track.
+- Applied feedback of omittinh `_ref` entries in JSON
+- Modularized recording storage via core recording JSON and subdirectories for compressed mesh, materials, assets, and previews
+- Add adaptive timing by complexity of state changes, number of viewport changes, and duration of rendered video
+- Moved rendering to separate Blender process which runs in background. Rendering panel shows its progress incl. number of frames done out of all frames and estimated time.
+- Added Add-on defaults and updating preferences of all UI elements.
+- Implemented basic "History" Panel: Contains list of states and live preview image below which is captured during recording as simple JPG of 3D viewport.
+    - If history branches a state entry shows two buttons for switching between different branches / child nodes.
+    - Clicking a state in the list updates the model with that very state. Of course only updates any modelling aspects tracked so far by the add-on, so other blender scene data is ignored.
+    - Clicking a state while recording does not create a new state triggered by the state-change registered by the DepsGraph
+- Added more state transition animations:
+    - Smoother object transforming & vertex movements via interpolation.
+    - Creation & Deletion (or just visibility change), topology & Material updates all via simple crossfade: insert new state by "increasing" its opacity, then remove old state by "decreasing" its opacilty.
+- Added tracking world background, incl. override in UI with static color or environment map.
+- Replaced car example with rocket for demo because simpler, also considering live demo with respect to my novice modelling skills so far
+- Create final presentation using [Typst](https://typst.app/), because we must submit the slides (I guess as PDF), and Typst allows for simultaneous PDF & HTML export (latter for directly showing videos).
+    - Presentation includes idea recap, example rendering video, implementation parts & challenges (incl. UI captures), comparison to ScreenSnap Add-on, Current state vs. "future work", live demo at the end with super simple demo.
+- Fixed sculpting to not flicker in rendering. Grouped DepsGraph updates by brush-stroke lifetime, so mesh update is triggered on stroke finish. Still noticable lags.
+- Added additional second at end of rendering to briefly see finished result before video ends.
+- For camera interpolation, removed setting interpolating between viewport entries (creating smoothened curve between viewport entires, exactly interpolating them), since keeping this one fully enabled always looks best. Though, added easing UI slider which controls camera speed at start & end to not abruply stop before state changes.
+- Create demo videos for presentation with super-basic planned live demo, but 
+
 ## until 2026-07-07
 
 - Further modularize recording files: Put meshes into separate files in `meshes_<timestamp>/` directory, always compressed to make JSON smaller and decrease size of any intermediately-decompressed files, e.g. decrease chance of GB+ files in long sessions.
